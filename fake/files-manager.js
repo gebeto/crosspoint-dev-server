@@ -1,5 +1,3 @@
-import { defineFakeRoute } from "vite-plugin-fake-server/client";
-
 const dummyData = {
   "/": [
     {
