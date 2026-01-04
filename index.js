@@ -42,9 +42,6 @@ async function startDevServer() {
   });
 
   app.get("/api/files", async (req, res) => {
-    res.removeHeader("ETag");
-    res.removeHeader("Last-Modified");
-
     return res.json(FilesApi.filesRoute(req.query));
   });
 
