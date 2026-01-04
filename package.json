@@ -1,0 +1,27 @@
+{
+  "name": "crosspoint-dev-server",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "crosspoint-dev-server": "./index.js"
+  },
+  "homepage": "https://github.com/gebeto/crosspoint-dev-server#readme",
+  "bugs": {
+    "url": "https://github.com/gebeto/crosspoint-dev-server/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gebeto/crosspoint-dev-server.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "vite": "^6.4.1",
+    "vite-plugin-fake-server": "^2.2.2"
+  }
+}
