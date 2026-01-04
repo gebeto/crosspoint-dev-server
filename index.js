@@ -20,17 +20,14 @@ async function startDevServer() {
     },
   });
 
-  // await server.listen();
-
-  // filesRoutes.forEach(({ url, response }) => {
-  //   app.use(url, async (_req, res) => {
-  //     const resp = response(_req.params);
-  //     res.json(resp);
-  //   });
-  // });
+  app.use(express.json()); // for parsing application/json
+  app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
   app.get("/", async (_req, res) => {
     return res.redirect("/HomePage.html");
+  });
+  app.get("/files", async (_req, res) => {
+    return res.redirect("/FilesPage.html");
   });
 
   app.get("/api/files", async (req, res) => {
@@ -39,6 +36,11 @@ async function startDevServer() {
 
   app.get("/api/status", async (req, res) => {
     return res.json(filesRoutes["/api/status"].response(req.query));
+  });
+
+  app.post("/api/delete", async (req, res) => {
+    console.log(req);
+    return res.json({});
   });
 
   app.use(server.middlewares);
