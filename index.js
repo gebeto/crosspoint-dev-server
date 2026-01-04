@@ -2,7 +2,7 @@
 
 import { createServer } from "vite";
 import express from "express";
-import { routes as filesRoutes } from "./fake/files-manager.js";
+import * as FilesApi from "./fake/files-manager.js";
 import formData from "express-form-data";
 import path from "path";
 import os from "os";
@@ -34,31 +34,38 @@ async function startDevServer() {
     return res.redirect("/FilesPage.html");
   });
 
+  app.use(async (req, res, next) => {
+    if (req.url.startsWith("/api/")) {
+      await new Promise((resolve) => setTimeout(resolve, 700));
+    }
+    next();
+  });
+
   app.get("/api/files", async (req, res) => {
     res.removeHeader("ETag");
     res.removeHeader("Last-Modified");
 
-    return res.json(filesRoutes["/api/files"].response(req.query));
+    return res.json(FilesApi.filesRoute(req.query));
   });
 
   app.get("/api/status", async (req, res) => {
-    return res.json(filesRoutes["/api/status"].response(req.query));
+    return res.json(FilesApi.statusRoute(req.query));
   });
 
   app.post("/api/delete", async (req, res) => {
-    res.json(filesRoutes["/api/delete"].response(req.body));
+    res.json(FilesApi.deleteRoute(req.body));
 
     return res.sendStatus(200).end();
   });
 
   app.post("/api/move", async (req, res) => {
-    res.json(filesRoutes["/api/move"].response(req.body));
+    res.json(FilesApi.moveRoute(req.body));
 
     return res.sendStatus(200).end();
   });
 
   app.post("/api/mkdir", async (req, res) => {
-    res.json(filesRoutes["/api/mkdir"].response(req.body));
+    res.json(FilesApi.mkdirRoute(req.body));
 
     return res.sendStatus(200).end();
   });
